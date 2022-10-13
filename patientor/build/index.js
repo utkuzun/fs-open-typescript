@@ -8,7 +8,7 @@ dotenv_1.default.config();
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.get('/ping', (_req, res) => {
+app.get('/api/ping', (_req, res) => {
     res.send('pong');
 });
 const port = process.env.PORT || 3005;
