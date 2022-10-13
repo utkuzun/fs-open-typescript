@@ -9,4 +9,9 @@ router.get('/', (_req, res) => {
   res.send(patients);
 });
 
+router.post('/', (req, res) => {
+  const patientAdded: Patient = patientService.create(req.body);
+  return res.json({ patientAdded });
+});
+
 export default router;

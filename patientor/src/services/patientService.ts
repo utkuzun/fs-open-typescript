@@ -1,7 +1,9 @@
-import patientEntries from '../../data/patients';
-import { Patient } from '../types';
+import { v1 as uuid } from 'uuid';
 
-const getAll = (): Omit<Patient[], 'ssn'> => {
+import patientEntries from '../../data/patients';
+import { PatientPublic, PatientEntry, Patient } from '../types';
+
+const getAll = (): PatientPublic[] => {
   return patientEntries.map(({ id, name, dateOfBirth, gender, occupation }) => {
     return {
       id,
@@ -13,4 +15,11 @@ const getAll = (): Omit<Patient[], 'ssn'> => {
   });
 };
 
-export default { getAll };
+const create = (entry: PatientEntry): Omit<Patient, 'ssn'> => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const id: string = uuid();
+  const patient: Patient = { ...entry, id };
+  return patient;
+};
+
+export default { getAll, create };
