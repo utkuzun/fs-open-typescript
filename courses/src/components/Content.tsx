@@ -1,11 +1,9 @@
 import React from 'react'
 
-interface Part {
-  name: string
-  exerciseCount: number
-}
+import { CoursePart } from '../customTypes'
+import Part from './Part'
 
-const Content = ({ courseParts }: { courseParts: Part[] }) => {
+const Content = ({ courseParts }: { courseParts: CoursePart[] }) => {
   if (courseParts.length <= 0) {
     return null
   }
@@ -13,9 +11,7 @@ const Content = ({ courseParts }: { courseParts: Part[] }) => {
   return (
     <div>
       {courseParts.map((part) => (
-        <p key={part.name}>
-          {part.name} {part.exerciseCount}
-        </p>
+        <Part key={part.name} part={part} />
       ))}
     </div>
   )
