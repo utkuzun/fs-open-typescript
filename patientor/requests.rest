@@ -14,5 +14,6 @@ Content-Type: application/json
     "name" : "utku",
     "dateOfBirth" : "1986-07-09",
     "gender" : "male",
-    "occupation" : "Trabzon"
+    "occupation" : "Trabzon",
+    "ssn" : "35235313"
 }

@@ -1,8 +1,10 @@
 import diagnoseEntries from '../../data/diagnoses';
 import { Diagnose } from '../types';
 
+const diagnoses: Diagnose[] = diagnoseEntries;
+
 const getAll = (): Diagnose[] => {
-  return diagnoseEntries;
+  return diagnoses;
 };
 
 export default { getAll };
