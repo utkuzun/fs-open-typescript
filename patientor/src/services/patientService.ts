@@ -17,6 +17,17 @@ const getAll = (): PatientPublic[] => {
   });
 };
 
+const getOne = (id: string): PatientPublic => {
+  const patient: PatientPublic | undefined = patientEntries.find(
+    (item) => item.id === id
+  );
+  if (!patient) {
+    throw new Error(`Patient ${id} not found!!`);
+  }
+
+  return patient;
+};
+
 const create = (entry: PatientEntry): Omit<Patient, 'ssn'> => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const id: string = uuid();
@@ -25,4 +36,4 @@ const create = (entry: PatientEntry): Omit<Patient, 'ssn'> => {
   return patient;
 };
 
-export default { getAll, create };
+export default { getAll, create, getOne };

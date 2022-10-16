@@ -3,11 +3,11 @@ import express from 'express';
 import patientService from '../services/patientService';
 import toNewPatientEntry from '../utils/toNewPatientEntry';
 
-import { Patient } from '../types';
+import { PatientPublic } from '../types';
 const router = express.Router();
 
 router.get('/', (_req, res) => {
-  const patients: Patient[] = patientService.getAll();
+  const patients: PatientPublic[] = patientService.getAll();
   res.send(patients);
 });
 
@@ -17,6 +17,20 @@ router.post('/', (req, res) => {
     const newEntry = toNewPatientEntry(req.body);
     const patientAdded = patientService.create(newEntry);
     return res.json(patientAdded);
+  } catch (error) {
+    let message = 'Error occured';
+    if (error instanceof Error) {
+      message = message + error.message;
+    }
+    return res.status(500).json({ message });
+  }
+});
+
+router.get('/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const patient = patientService.getOne(id);
+    return res.json(patient);
   } catch (error) {
     let message = 'Error occured';
     if (error instanceof Error) {
