@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
   } catch (error) {
     let message = 'Error occured';
     if (error instanceof Error) {
-      message = message + error.message;
+      message = message + ': ' + error.message;
     }
     return res.status(500).json({ message });
   }

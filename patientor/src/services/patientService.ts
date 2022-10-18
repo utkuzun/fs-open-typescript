@@ -18,7 +18,7 @@ const getAll = (): PatientPublic[] => {
 };
 
 const getOne = (id: string): PatientPublic => {
-  const patient: PatientPublic | undefined = patientEntries.find(
+  const patient: PatientPublic | undefined = patients.find(
     (item) => item.id === id
   );
   if (!patient) {
