@@ -6,21 +6,23 @@ import { PatientPublic, PatientEntry, Patient } from '../types';
 let patients: Patient[] = patientEntries;
 
 const getAll = (): PatientPublic[] => {
-  return patients.map(({ id, name, dateOfBirth, gender, occupation }) => {
-    return {
-      id,
-      name,
-      dateOfBirth,
-      gender,
-      occupation,
-    };
-  });
+  return patients.map(
+    ({ id, name, dateOfBirth, gender, occupation, entries }) => {
+      return {
+        id,
+        name,
+        dateOfBirth,
+        gender,
+        occupation,
+        entries,
+      };
+    }
+  );
 };
 
-const getOne = (id: string): PatientPublic => {
-  const patient: PatientPublic | undefined = patients.find(
-    (item) => item.id === id
-  );
+const getOne = (id: string): Patient => {
+  const patient: Patient | undefined = patients.find((item) => item.id === id);
+
   if (!patient) {
     throw new Error(`Patient ${id} not found!!`);
   }
