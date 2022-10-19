@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Entry, EntryWithoutId, Gender, PatientEntry } from '../types';
 
 const isString = (text: unknown): text is string => {
@@ -38,16 +39,48 @@ const parseGender = (gender: unknown): Gender => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isEntry = (param: any): param is EntryWithoutId => {
-  return (
-    isString(param.type) ||
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    ['HealthCheck', 'Hospital', 'OccupationalHealthcare'].includes(param.type)
-  );
+  const entryKeys = ['description', 'date', 'specialist', 'type'];
+  let isEntry = true;
+
+  entryKeys.forEach((item) => {
+    if (item !== 'id' && !Object.keys(param).includes(item)) {
+      isEntry = false;
+    }
+  });
+
+  return isEntry;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const hasRightProps = (param: any) => {
+  let hasRightProps = true;
+  switch (param.type) {
+    case 'HealthCheck':
+      if (!('healthCheckRating' in param)) {
+        hasRightProps = false;
+      }
+      break;
+    case 'OccupationalHealthcare':
+      if (!('employerName' in param)) {
+        hasRightProps = false;
+      }
+      break;
+    case 'Hospital':
+      if (!('discharge' in param)) {
+        hasRightProps = false;
+      }
+      break;
+
+    default:
+      break;
+  }
+
+  return hasRightProps;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const parseEntries = (entry: any): EntryWithoutId => {
-  if (!entry || !entry?.type || !isEntry(entry)) {
+  if (!entry || !entry?.type || !hasRightProps(entry) || !isEntry(entry)) {
     throw new Error('Incorrect or missing entry');
   }
   return entry;
