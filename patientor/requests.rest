@@ -30,5 +30,6 @@ Content-Type: application/json
     "specialist": "MD House",
     "type": "HealthCheck",
     "description": "Yearly control visit. Cholesterol levels back to normal.",
-    "healthCheckRating": 0
+    "healthCheckRating": 0,
+    "diagnosisCodes" : ["L60.1"]
 }
